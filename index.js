@@ -232,7 +232,7 @@ function leaveRoom(user) {
 function listRoomMembers(user) {
     var room = Room.getRoomByName(user.getRoom());
     if(room) {
-        user.notify(room.getMemberList());
+        user.notify(room.getMemberList(user));
     } else {
         user.notify('You are not in a room');
     }
