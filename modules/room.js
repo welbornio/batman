@@ -117,8 +117,9 @@ Room.prototype.removeUser = function(user) {
 
 /**
  * List members for this room
+ * @param user User requesting member list
  */
-Room.prototype.getMemberList = function() {
+Room.prototype.getMemberList = function(user) {
     var i;
     var msg = '';
 
