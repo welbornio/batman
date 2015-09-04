@@ -200,11 +200,11 @@ function joinRoom(user, name) {
 /**
  * Create a new room
  * @param user User creating room
- * @param room Room name to be created
+ * @param name Room name to be created
  */
-function createRoom(user, room) {
-    if(Room.createRoom(room)) {
-        user.notify('Room \'' + room + '\' created!');
+function createRoom(user, name) {
+    if(Room.createRoom(name)) {
+        user.notify('Room \'' + name + '\' created!');
     } else {
         user.notify('Room already exists');
     }

@@ -16,18 +16,6 @@ module.exports = {
     },
 
     /**
-     * Distribute message to room
-     * @param user User sending message
-     * @param name Room name
-     * @param msg Message
-     * @param adminMessage Whether or not this is an administrative message
-     */
-    distributeMessage: function(user, name, msg, adminMessage) {
-        var room = this.getRoomByName(name);
-        room.distributeMessage(user, msg, adminMessage);
-    },
-
-    /**
      * List the available rooms and their member counts
      */
     getRoomList: function() {
