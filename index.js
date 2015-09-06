@@ -127,7 +127,7 @@ function handleCommand(user, text) {
  */
 function attemptLogin(user, text) {
     if(!/^[a-zA-Z0-9_]+$/.test(text)) {
-        user.notify('Sorry, name contains illegal characters');
+        user.notify('Sorry, name contains illegal characters.');
         return false;
     }
 
@@ -202,7 +202,7 @@ function joinRoom(user, name) {
         room.addMember(user);
         listRoomMembers(user);
     } else {
-        user.notify('Room \'' + room + '\' does not exist');
+        user.notify('Room \'' + room + '\' does not exist.');
     }
 }
 
@@ -215,7 +215,7 @@ function createRoom(user, name) {
     if(Room.createRoom(name)) {
         user.notify('Room \'' + name + '\' created!');
     } else {
-        user.notify('Room already exists');
+        user.notify('Room already exists.');
     }
 }
 
@@ -229,7 +229,7 @@ function leaveRoom(user) {
         room.removeUser(user);
         user.leaveRoom();
     } else {
-        user.notify('You are not in a room');
+        user.notify('You are not in a room.');
     }
 
 }
@@ -290,7 +290,7 @@ function listRoomMembers(user) {
     if(room) {
         user.notify(room.getMemberList(user));
     } else {
-        user.notify('You are not in a room');
+        user.notify('You are not in a room.');
     }
 }
 
@@ -300,7 +300,7 @@ function listRoomMembers(user) {
  * @param command The attempted command
  */
 function unknownCommand(user, command) {
-    user.notify('Unknown command: \'' + command + '\'');
+    user.notify('Unknown command: \'' + command + '\'.');
 }
 
 /**
