@@ -9,7 +9,6 @@ Also ensure that you have Node.js and NPM installed. [Download Node.js here](htt
 You can also use Homebrew to install Node.js. [Download Homebrew here](http://brew.sh/).
 ```
 brew install node
-
 ```
 
 Once Node is installed, go ahead and clone into the repo.
@@ -18,7 +17,7 @@ git clone git@github.com:welbornio/batman.git
 ```
 Once you have it downloaded, just jump into the directory, and start the server.
 ```
-cd batamn/
+cd batman/
 npm start
 ```
 The server will be running on port 7337.
@@ -26,6 +25,10 @@ The server will be running on port 7337.
 ### Connecting to the server
 ```
 telent [IP Address] [PORT]
+```
+If the server is running locally:
+```
+telnet 0.0.0.0 7337
 ```
 
 ### Commands Available
