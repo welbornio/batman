@@ -2,6 +2,20 @@ var userRegistry = [];
 
 module.exports = {
     /**
+     * Get a user by their username
+     * @param name
+     */
+    getUserByName: function(name) {
+        var i;
+        for(i = 0; i < userRegistry.length; i++) {
+            if(userRegistry[i].getName() === name) {
+                return userRegistry[i];
+            }
+        }
+        return false;
+    },
+
+    /**
      * Create a user with the socket that just connected
      * @param socket
      * @returns {{name: null, socket: *}} User object
@@ -10,21 +24,6 @@ module.exports = {
         var user = new User(socket);
         userRegistry.push(user);
         return user;
-    },
-
-    /**
-     * Determine if username is taken
-     * @param name Name we're testing for
-     * @returns {boolean} If name is available
-     */
-    checkNameAvailability: function(name) {
-        var i;
-        for(i = 0; i < userRegistry.length; i++) {
-            if(userRegistry[i].name === name) {
-                return false;
-            }
-        }
-        return true;
     },
 
     /**
@@ -39,6 +38,25 @@ module.exports = {
                 console.log('Removed user from registry at index:', i);
             }
         }
+    },
+
+    /**
+     * List all active members
+     * @param user Requesting user
+     */
+    getUserList: function(user) {
+        var i;
+        var msg = 'All active users:\n';
+        for(i = 0; i < userRegistry.length; i++) {
+            msg += userRegistry[i].getName();
+            if(userRegistry[i] === user) {
+                msg += ' (** this is you)';
+            }
+            msg += '\n';
+        }
+        msg += 'end of list.';
+
+        return msg;
     }
 };
 
@@ -51,6 +69,7 @@ function User(socket) {
     this.socket = socket;
     this.name = null;
     this.room = null;
+    this.recentPM = null;
 }
 
 /**
@@ -90,6 +109,32 @@ User.prototype.getRoom = function() {
  */
 User.prototype.leaveRoom = function() {
     this.room = null;
+};
+
+/**
+ * Send private message to this user
+ * @param user User sending message
+ * @param message Message
+ */
+User.prototype.sendPrivateMessage = function(user, message) {
+    var msg = '**PRIVATE** (' + user.getName() + ' => ' + this.name + '): ' + message;
+    this.setRecentPM(user.getName());
+    this.notify(msg);
+    user.notify(msg);
+};
+
+/**
+ * Set the most recent person to PM this user
+ */
+User.prototype.setRecentPM = function(name) {
+    this.recentPM = name;
+};
+
+/**
+ * Get the name of the most recent user to PM this user
+ */
+User.prototype.getRecentPM = function() {
+    return this.recentPM;
 };
 
 /**

@@ -86,6 +86,15 @@ function handleCommand(user, text) {
     var command = text.split(' ')[0];
     var param = text.split(' ')[1];
     switch(command) {
+        case '/users':
+            listUsers(user);
+            break;
+        case '/w':
+            sendPrivateMessage(user, param, text);
+            break;
+        case '/r':
+            replyToUser(user, text);
+            break;
         case '/members':
             listRoomMembers(user);
             break;
@@ -117,12 +126,12 @@ function handleCommand(user, text) {
  * @returns boolean If login was successful
  */
 function attemptLogin(user, text) {
-    if(text.charAt(0) === '/') {
-        user.notify('Sorry, name cannot start with \'/\'');
+    if(!/^[a-zA-Z0-9_]+$/.test(text)) {
+        user.notify('Sorry, name contains illegal characters');
         return false;
     }
 
-    if(!User.checkNameAvailability(text)) {
+    if(User.getUserByName(text)) {
         user.notify('Sorry, name taken.');
         return false;
     }
@@ -226,6 +235,53 @@ function leaveRoom(user) {
 }
 
 /**
+ * List all active users
+ * @param user Requesting users
+ */
+function listUsers(user) {
+    user.notify(User.getUserList(user));
+}
+
+/**
+ * Send a private message to another user
+ * @param user User sending message
+ * @param name User name we are whispering
+ * @param text Entire message
+ */
+function sendPrivateMessage(user, name, text) {
+    var target;
+    var message = text.split(' ');
+    message.splice(0, 2);
+    message = message.join(' ');
+
+    target = User.getUserByName(name);
+    if(target) {
+        target.sendPrivateMessage(user, message);
+    } else {
+        user.notify('Sorry, private message target does not exist.');
+    }
+}
+
+/**
+ * Reply to the most recent user who private messaged you
+ * @param user User sending message
+ * @param text Entire message
+ */
+function replyToUser(user, text) {
+    var target;
+    var message = text.split(' ');
+    message.splice(0, 1);
+    message = message.join(' ');
+
+    target = User.getUserByName(user.getRecentPM());
+    if(target) {
+        target.sendPrivateMessage(user, message);
+    } else {
+        user.notify('You have no one to reply to.');
+    }
+}
+
+/**
  * List room members
  * @param user User to be notified
  */
@@ -253,5 +309,5 @@ function unknownCommand(user, command) {
  * @returns {string} Cleaned buffer as a string
  */
 function cleanBuffer(buffer) {
-    return buffer.toString().replace(/(\r\n|\n|\r)/gm, "");
+    return buffer.toString().replace(/(\r\n|\n|\r|\t)/gm, "");
 }
