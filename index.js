@@ -149,7 +149,7 @@ function distributeMessage(user, text) {
     var msg = user.getName() + ': ' + text;
     var room = Room.getRoomByName(user.getRoom());
 
-    if(room) {
+    if(room && text.length) {
         room.distributeMessage(user, msg);
     }
 }
@@ -172,7 +172,7 @@ function userExit(user) {
  */
 function userDisconnected(user) {
     if(user.getRoom()) {
-        leaveRoom();
+        leaveRoom(user);
     }
     User.removeUser(user);
 }

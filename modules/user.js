@@ -142,7 +142,9 @@ User.prototype.getRecentPM = function() {
  * @param msg Message
  */
 User.prototype.notify = function(msg) {
-    this.socket.write(msg + '\n');
+    if(this.socket.writable) {
+        this.socket.write(msg + '\n');
+    }
 };
 
 /**
@@ -150,5 +152,7 @@ User.prototype.notify = function(msg) {
  * @param msg Message
  */
 User.prototype.end = function(msg) {
-    this.socket.end(msg + '\n');
+    if(this.socket.writable) {
+        this.socket.end(msg + '\n');
+    }
 };
