@@ -2,7 +2,7 @@
 TCP-based chat server
 
 ### Running locally
-You may need XCode if you do not already have it installed. [Download XCode Here](https://itunes.apple.com/us/app/xcode/id497799835?mt=12)
+You may need XCode if you do not already have it installed. [Download XCode here](https://itunes.apple.com/us/app/xcode/id497799835?mt=12).
 
 Also ensure that you have Node.js and NPM installed. [Download Node.js here](http://nodejs.org).
 
