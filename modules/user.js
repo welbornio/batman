@@ -121,7 +121,9 @@ User.prototype.sendPrivateMessage = function(user, message) {
     if(message.trim().length) {
         this.setRecentPM(user.getName());
         this.notify(msg);
-        user.notify(msg);
+        if(this !== user) {
+            user.notify(msg);
+        }
     } else {
         user.notify('Please include a message.');
     }
