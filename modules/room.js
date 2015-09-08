@@ -1,5 +1,6 @@
 var roomRegistry = [];
 roomRegistry.push(new Room('chat'));
+roomRegistry.push(new Room('hottub'));
 
 module.exports = {
     /**

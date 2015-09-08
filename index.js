@@ -151,6 +151,8 @@ function distributeMessage(user, text) {
 
     if(room && text.length) {
         room.distributeMessage(user, msg);
+    } else if(text.length) {
+        user.notify('No one can hear you.');
     }
 }
 
