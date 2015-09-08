@@ -20,7 +20,7 @@ Once you have it downloaded, just jump into the directory, and start the server.
 cd batman/
 npm start
 ```
-The server will be running on port 7337.
+The server will be running on port 9399.
 
 ### Connecting to the server
 ```
@@ -28,7 +28,7 @@ telent [IP Address] [PORT]
 ```
 If the server is running locally:
 ```
-telnet 0.0.0.0 7337
+telnet 0.0.0.0 9399
 ```
 
 ### Commands Available
