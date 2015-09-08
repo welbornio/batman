@@ -1,4 +1,4 @@
-var port = 7337;
+var port = 9399;
 var http = require('http');
 var net = require('net');
 var server = net.createServer(handleNewSocket).listen(port);
@@ -15,7 +15,7 @@ var Room = require('./modules/room');
  */
 function handleNewSocket(socket) {
     var user = User.createUser(socket);
-    user.notify('Welcome to the Batman chat server!');
+    user.notify('Welcome to the XYZ chat server');
 
     /**
      * Incoming socket
