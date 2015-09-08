@@ -118,9 +118,13 @@ User.prototype.leaveRoom = function() {
  */
 User.prototype.sendPrivateMessage = function(user, message) {
     var msg = '**PRIVATE** (' + user.getName() + ' => ' + this.name + '): ' + message;
-    this.setRecentPM(user.getName());
-    this.notify(msg);
-    user.notify(msg);
+    if(message.trim().length) {
+        this.setRecentPM(user.getName());
+        this.notify(msg);
+        user.notify(msg);
+    } else {
+        user.notify('Please include a message.');
+    }
 };
 
 /**

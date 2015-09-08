@@ -149,9 +149,9 @@ function distributeMessage(user, text) {
     var msg = user.getName() + ': ' + text;
     var room = Room.getRoomByName(user.getRoom());
 
-    if(room && text.length) {
+    if(room && text.trim().length) {
         room.distributeMessage(user, msg);
-    } else if(text.length) {
+    } else if(text.trim().length) {
         user.notify('No one can hear you.');
     }
 }
